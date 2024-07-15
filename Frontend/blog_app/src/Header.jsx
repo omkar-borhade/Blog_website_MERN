@@ -8,7 +8,7 @@ function Header() {
   return (
     <div>
         <Navbar className=' border-b-2'>
-           <Link to='#' className='whitespace-nowrap, text-sm sm:text-xl font-semibold  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white px-2' >
+           <Link to='/' className='whitespace-nowrap, text-sm sm:text-xl font-semibold  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white px-2' >
            Info Blogs
            </Link>
            <form >
@@ -25,28 +25,29 @@ function Header() {
             <Button  className=' w-12 h-10 hidden sm:inline' color='gray' pill>
                 <FaMoon/>
             </Button>
-            <Link to='#' >
-            <Button gradientDuoTone='purpleToBlue'>   Sign In</Button>
+            <Link to='/sign-in' >
+            <Button gradientDuoTone='purpleToPink' outline>   Sign In</Button>
          
             </Link>
             <Navbar.Toggle/>
             
            </div>
            <Navbar.Collapse> 
-                <Navbar.Link active={path =="/"} as={'div'}>
-                    <Link to='#'>Home</Link>
+            
+                <Navbar.Link  active={path =="/"} as={'div'}>
+                    <Link to='/'>Home</Link>
                    
                   
                 </Navbar.Link >
-                <Navbar.Link  active={path =="#"}as={'div'}>
+                <Navbar.Link  active={path =="/about"}as={'div'}>
                  
-                    <Link to='#'>About</Link>
+                    <Link to='/about'>About</Link>
                    
                   
                 </Navbar.Link>
-                <Navbar.Link active={path =="#"} as={'div'}>
+                <Navbar.Link active={path =="/projects"} as={'div'}>
                     
-                    <Link to='#'>Project</Link>
+                    <Link to='/projects'>Project</Link>
                   
                 </Navbar.Link>
             </Navbar.Collapse>
