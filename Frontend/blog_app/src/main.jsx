@@ -9,8 +9,9 @@ import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
 import Header from './Header';
-
-
+import axios from 'axios';
+axios.defaults.baseURL="http://localhost:3000"
+axios.defaults.withCredentials=true;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
