@@ -1,6 +1,6 @@
 # 📝 MERN Stack Blog Website
 
-![MERN Stack Blog](https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2022/03/what-is-a-blog-1.webp | width=400)
+![MERN Stack Blog](https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2022/03/what-is-a-blog-1.webp)
 
 Welcome to our MERN stack blog website project! This application allows users to read and create engaging blog posts. It's built using MongoDB, Express.js, React, and Node.js, providing a seamless full-stack experience.
 
