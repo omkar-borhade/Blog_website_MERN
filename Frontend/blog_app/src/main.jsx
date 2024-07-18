@@ -11,12 +11,14 @@ import Projects from './pages/Projects';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import axios from 'axios';
-import { store } from './redux/store.js';
+import { store, persistor } from './redux/store.js';
 import {Provider} from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react';
 axios.defaults.baseURL="http://localhost:3000"
 axios.defaults.withCredentials=true;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <PersistGate persistor={persistor}>
   <Provider store={store}>
     
 
@@ -36,4 +38,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Footer/>
     </BrowserRouter>   
   </Provider>
-)
+  </PersistGate>
+);
