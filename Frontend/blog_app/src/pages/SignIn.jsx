@@ -2,10 +2,12 @@ import{ useState } from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import{Alert, Button, Label, Spinner, TextInput} from 'flowbite-react'
 import axios from 'axios'
+import { useDispatch ,useSelector} from 'react-redux'
+import { signInSuccess,signInStart,signInFailure } from '../redux/user/userSlice'
 export default function SignIn() {
   const[formData,setFormData]=useState({});
-  const [errorMessage,setErrorMessage]=useState(null);
-  const [loading ,setLoading]=useState(false);
+  const{loading,error:errorMessage}= useSelector(state=>state.user);
+  const dispatch =useDispatch();
   const navigate =useNavigate();
   const handleChange =(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value.trim()});
@@ -13,10 +15,9 @@ export default function SignIn() {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     if(!formData.email ||!formData.password){
-      return setErrorMessage('Please fill out all fields.');
+      return dispatch(signInFailure('Please fill out all fields.'));
     }
-    setLoading(true)
-    setErrorMessage(null);
+   dispatch(signInStart());
     axios.post('/api/auth/signin',formData,{
       headers: {
         'Content-Type': 'application/json',
@@ -29,20 +30,20 @@ export default function SignIn() {
      
       if (data.success=== false)
       {
-        return setErrorMessage(data.message)
+        dispatch(signInFailure(data.message));
 
       }
      
-      setLoading(false)
+     
       
       if (response.status >= 200 && response.status < 300) {
+        dispatch(signInSuccess(data));
         navigate('/');
       }
     })
     .catch(error => {
       
-      setErrorMessage(error.response.data.message)
-     setLoading(false)
+      dispatch(signInFailure(error.response.data.message));
     });
   }
   return (
