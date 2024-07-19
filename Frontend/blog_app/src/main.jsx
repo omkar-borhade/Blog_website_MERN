@@ -14,6 +14,7 @@ import axios from 'axios';
 import { store, persistor } from './redux/store.js';
 import {Provider} from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
+import ThemeProvider from './components/ThemeProvider.jsx';
 axios.defaults.baseURL="http://localhost:3000"
 axios.defaults.withCredentials=true;
 
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     
 
     <BrowserRouter>
+    <ThemeProvider>
     <Header/>
     <Routes>
       <Route path='/' element={<Home/>}/>
@@ -36,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       
     </Routes>
     <Footer/>
+    </ThemeProvider>
     </BrowserRouter>   
   </Provider>
   </PersistGate>
