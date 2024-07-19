@@ -32,6 +32,11 @@ catch(error){
 }
 };
 
+
+
+
+
+
 export const signin =async (req,res,next)=>{
     const {email,password}=req.body;
     if(!email||!password||email==''|| password==''){
@@ -61,3 +66,47 @@ export const signin =async (req,res,next)=>{
         
     }
 }
+        export const googleAuth = async (req, res, next) => {
+        const { email, name, googlePhotoUrl } = req.body;
+        try {
+          let user = await User.findOne({ email });
+      
+          if (user) {
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+            const { password: pass, ...rest } = user._doc;
+      
+            res.status(200)
+              .cookie('access_token', token, {
+                httpOnly: true,
+              })
+              .json(rest);
+          } else {
+            // Generate a random password for new users
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashPassword = bcryptjs.hashSync(generatedPassword, 10);
+      
+            // Generate a random username (example only)
+            const username = name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4);
+      
+            const newUser = new User({
+              username,
+              email,
+              password: hashPassword,
+              profilePicture: googlePhotoUrl,
+            });
+      
+            user = await newUser.save();
+      
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+            const { password: pass, ...rest } = user._doc;
+      
+            res.status(200)
+              .cookie('access_token', token, {
+                httpOnly: true,
+              })
+              .json(rest);
+          }
+        } catch (error) {
+          next(error);
+        }
+      }
