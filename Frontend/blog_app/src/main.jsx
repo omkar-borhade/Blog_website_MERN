@@ -15,6 +15,7 @@ import { store, persistor } from './redux/store.js';
 import {Provider} from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
 import ThemeProvider from './components/ThemeProvider.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 axios.defaults.baseURL="http://localhost:3000"
 axios.defaults.withCredentials=true;
 
@@ -31,7 +32,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path='/about' element={<About/>}/>
       <Route path='/sign-in' element={<SignIn/>}/>
       <Route path='/sign-up' element={<SignUp/>}/>
-      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route element={<PrivateRoute/>}>
+          <Route path='/dashboard' element={<Dashboard/>}/>
+      </Route>
       <Route path='/projects' element={<Projects/>}/>
       
 
